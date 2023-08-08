@@ -1,0 +1,51 @@
+package fwk.search.model;
+
+import java.util.List;
+
+/**
+ * @author Krunal Lukhi
+ * @since 08/08/23
+ */
+public class Filter {
+
+    private String field;
+    private FilterType filterType;
+    private List<Object> values;
+    private List<Filter> filters;
+
+
+    public String getField() {
+        return field;
+    }
+
+    public Filter setField(String field) {
+        this.field = field;
+        return this;
+    }
+
+    public FilterType getFilterType() {
+        return filterType;
+    }
+
+    public Filter setFilterType(FilterType filterType) {
+        this.filterType = filterType;
+        return this;
+    }
+
+    public List<Object> getValues() {
+        return values;
+    }
+
+    public Filter setValues(List<Object> values) {
+        this.values = values;
+        return this;
+    }
+
+    public List<Filter> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(List<Filter> filters) {
+        this.filters = filters;
+    }
+}
