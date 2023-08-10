@@ -1,5 +1,7 @@
 package fwk.mongo;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.internal.MongoClientImpl;
 import fwk.lifecycle.AbstractAppSmartLifeCycle;
 import fwk.property.PropertyStore;
 import org.springframework.beans.BeansException;
@@ -19,11 +21,11 @@ public class MongoTemplateFactoryImpl extends AbstractAppSmartLifeCycle implemen
     public MongoTemplateFactoryImpl(PropertyStore propertyStore) {
         super(Layer.PERSISTENCE);
         this.propertyStore = propertyStore;
-
     }
 
     @Override
     public MongoTemplate getMongoTemplate() {
+//        need to implement this method
         return null;
     }
 

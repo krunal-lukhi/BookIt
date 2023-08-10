@@ -1,5 +1,7 @@
 package fwk.search.model;
 
+import org.springframework.data.mongodb.core.MongoTemplate;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,7 +13,5 @@ public class Request implements Serializable {
     private String key;
     private String keyword;
     private List<Filter> filters;
-
-
 
 }
