@@ -1,5 +1,6 @@
 package fwk.search.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,5 +48,19 @@ public class Filter {
 
     public void setFilters(List<Filter> filters) {
         this.filters = filters;
+    }
+
+    public void addValue(Object value) {
+        if (this.values == null) {
+            values = new ArrayList<>();
+        }
+        values.add(value);
+    }
+
+    public void addFilter(Filter filter) {
+        if (this.filters == null) {
+            filters = new ArrayList<>();
+        }
+        filters.add(filter);
     }
 }
