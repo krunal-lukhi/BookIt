@@ -1,6 +1,7 @@
 package fwk.search.model;
 
-import java.util.List;
+import fwk.common.CollectionUtils;
+import fwk.common.StringUtils;
 
 /**
  * @author Krunal Lukhi
@@ -9,52 +10,102 @@ import java.util.List;
 public enum FilterType {
     IN("equals to any") {
         @Override
-        boolean isValidFilter(List<Object> values) {
+        boolean isValidFilter(Filter filter) {
             return true;
         }
     },
-    OR("Or condition"){
+    BETWEEN("between values") {
         @Override
-        boolean isValidFilter(List<Object> values) {
-            return values.size() <= 1;
+        boolean isValidFilter(Filter filter) {
+            return CollectionUtils.isNotEmpty(filter.getValues()) && filter.getFilters().size() == 2;
+        }
+    },
+
+    OR("Or condition") {
+        @Override
+        boolean isValidFilter(Filter filter) {
+            return CollectionUtils.isNotEmpty(filter.getValues());
         }
 
     },
-    NIN("not equals to any"){
+
+    AND("and condition") {
         @Override
-        boolean isValidFilter(List<Object> values) {
+        boolean isValidFilter(Filter filter) {
+            return CollectionUtils.isNotEmpty(filter.getValues());
+        }
+    },
+
+    NIN("not equals to any") {
+        @Override
+        boolean isValidFilter(Filter filter) {
             return true;
         }
     },
-    LT("less than"){
+
+    LT("less than") {
         @Override
-        boolean isValidFilter(List<Object> values) {
-            return values.size()<=1;
+        boolean isValidFilter(Filter filter) {
+            return CollectionUtils.isNotEmpty(filter.getFilters()) || filter.getFilters().size() == 1;
         }
     },
-    GT("greater than"){
+
+    GT("greater than") {
         @Override
-        boolean isValidFilter(List<Object> values) {
-            return values.size()<=1;
+        boolean isValidFilter(Filter filter) {
+            return CollectionUtils.isNotEmpty(filter.getFilters()) || filter.getFilters().size() == 1;
         }
     },
-    LTE("less than or equal to"){
+
+    LTE("less than or equal to") {
         @Override
-        boolean isValidFilter(List<Object> values) {
-            return values.size()<=1;
+        boolean isValidFilter(Filter filter) {
+            return CollectionUtils.isNotEmpty(filter.getFilters()) && filter.getFilters().size() == 1;
         }
     },
-    EQ("equal to"){
+
+    GTE("greater than or equal to") {
         @Override
-        boolean isValidFilter(List<Object> values) {
-            return values.size()==1;
+        boolean isValidFilter(Filter filter) {
+            return CollectionUtils.isNotEmpty(filter.getFilters()) && filter.getFilters().size() == 1;
         }
-    }
+    },
+
+    IS("equal to") {
+        @Override
+        boolean isValidFilter(Filter filter) {
+            return CollectionUtils.isNotEmpty(filter.getFilters()) && filter.getFilters().size() == 1;
+        }
+    },
+
+    NOT("not equal to") {
+        @Override
+        boolean isValidFilter(Filter filter) {
+            return StringUtils.isBlank(filter.getField()) && CollectionUtils.isNotEmpty(filter.getValues());
+        }
+    },
+
+    EXISTS("exits") {
+        @Override
+        boolean isValidFilter(Filter filter) {
+            return StringUtils.isNotBlank(filter.getField());
+        }
+    },
+
+    DOES_NOT_EXITS("does not exists") {
+        @Override
+        boolean isValidFilter(Filter filter) {
+            return StringUtils.isNotBlank(filter.getField());
+        }
+    },
     ;
-    abstract boolean isValidFilter(List<Object> values);
+    private String description;
+
     FilterType(String description) {
         this.description = description;
     }
+
+    abstract boolean isValidFilter(Filter filter);
 
     public String getDescription() {
         return description;
@@ -63,6 +114,4 @@ public enum FilterType {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    private String description;
 }
