@@ -29,6 +29,7 @@ public class MongoTemplateFactoryImpl extends AbstractAppSmartLifeCycle implemen
 
     public static MongoClient getMongoClient(PropertyStore propertyStore) {
         try {
+            //todo
             String mongoUrl = propertyStore.fetchProperty(FwkConstants.MongoConnectionConstants.MONGO_URL);
             MongoClientSettings mongoClientSettings = MongoClientSettings.builder().applyConnectionString(new ConnectionString(mongoUrl)).build();
             return new RetryTemplate().execute((RetryCallback<MongoClient, Throwable>) context -> MongoClients.create(mongoClientSettings));

@@ -1,4 +1,4 @@
-package fwk.search;
+package fwk.search.service;
 
 import fwk.search.model.Request;
 import fwk.search.model.Response;

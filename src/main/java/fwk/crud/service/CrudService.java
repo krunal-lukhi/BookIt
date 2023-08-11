@@ -1,4 +1,4 @@
-package fwk.support;
+package fwk.crud.service;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
