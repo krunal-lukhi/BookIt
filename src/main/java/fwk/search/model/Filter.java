@@ -1,5 +1,6 @@
 package fwk.search.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * @author Krunal Lukhi
  * @since 08/08/23
  */
-public class Filter {
+public class Filter implements Serializable, Cloneable {
 
     private String field;
     private FilterType filterType;
@@ -20,6 +21,8 @@ public class Filter {
     }
 
     public Filter setField(String field) {
+        Filter filter1 = new Filter();
+        Filter filter2 = new Filter();
         this.field = field;
         return this;
     }
@@ -63,4 +66,5 @@ public class Filter {
         }
         filters.add(filter);
     }
+
 }

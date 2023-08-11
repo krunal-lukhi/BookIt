@@ -2,6 +2,7 @@ package fwk.search.model;
 
 import fwk.common.CollectionUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @author Krunal Lukhi
  * @since 10/08/23
  */
-public class FilterBuilder {
+public class FilterBuilder implements Serializable {
     private final Filter filter;
 
     FilterBuilder() {
@@ -18,6 +19,7 @@ public class FilterBuilder {
 
     public static FilterBuilder newBuilder() {
         return new FilterBuilder();
+
     }
 
     public static FilterBuilder and() {
