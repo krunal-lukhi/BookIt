@@ -1,10 +1,12 @@
 package fwk.search.model;
 
+import java.io.Serializable;
+
 /**
  * @author Krunal Lukhi
  * @since 10/08/23
  */
-public class SortInfo {
+public class SortInfo implements Serializable {
     private String field;
 
     private Order order;
@@ -30,7 +32,7 @@ public class SortInfo {
         this.order = order;
     }
 
-    public enum Order{
+    public enum Order {
         ASC, DESC
     }
 }
