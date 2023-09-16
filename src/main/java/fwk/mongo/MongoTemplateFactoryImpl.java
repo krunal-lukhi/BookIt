@@ -1,11 +1,14 @@
 package fwk.mongo;
 
-import com.mongodb.*;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import fwk.common.LoggingUtils;
 import fwk.constants.FwkConstants;
 import fwk.lifecycle.AbstractAppSmartLifeCycle;
 import fwk.property.PropertyStore;
+import org.slf4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -19,6 +22,7 @@ import org.springframework.retry.support.RetryTemplate;
  * @since 06/08/23
  */
 public class MongoTemplateFactoryImpl extends AbstractAppSmartLifeCycle implements MongoTemplateFactory, ApplicationContextAware {
+    private static final Logger LOGGER = LoggingUtils.getLogger(MongoTemplateFactoryImpl.class);
     private ApplicationContext applicationContext;
     private PropertyStore propertyStore;
 
@@ -34,8 +38,10 @@ public class MongoTemplateFactoryImpl extends AbstractAppSmartLifeCycle implemen
             MongoClientSettings mongoClientSettings = MongoClientSettings.builder().applyConnectionString(new ConnectionString(mongoUrl)).build();
             return new RetryTemplate().execute((RetryCallback<MongoClient, Throwable>) context -> MongoClients.create(mongoClientSettings));
         } catch (RuntimeException runtimeException) {
+            LOGGER.error("Error while creating mongo template. Exception");
             throw runtimeException;
         } catch (Throwable throwable) {
+            LOGGER.error("Error while creating mongo template. Exception");
             throw new RuntimeException(throwable);
         }
     }
